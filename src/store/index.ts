@@ -2,9 +2,7 @@ import { createStore } from 'vuex'
 
 const store = createStore({
   state() {
-    return {
-      name: 'xkf',
-    }
+    return {}
   },
   getters: {},
   mutations: {},

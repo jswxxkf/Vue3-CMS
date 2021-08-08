@@ -1,8 +1,5 @@
 <template>
   <div class="app">
-    <h2>{{ $store.state.name }}</h2>
-    <router-link to="/login">登录</router-link>
-    <router-link to="/main">首页</router-link>
     <router-view></router-view>
   </div>
 </template>
@@ -10,6 +7,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 
+// defineComponent就是为了配合TS做类型检查及约束，其定义了很多泛型(包括默认值)
+// 且返回 DefineComponent类型
 export default defineComponent({
   name: 'App',
   components: {},
@@ -17,12 +16,7 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.app {
+  height: 100%;
 }
 </style>
