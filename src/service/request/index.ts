@@ -49,7 +49,9 @@ class HyRequest {
       (res) => {
         console.log('所有实例都有的拦截器，响应成功拦截')
         // 将Loading遮罩层移除
-        this.loading?.close()
+        setTimeout(() => {
+          this.loading?.close()
+        }, 200)
         const data = res.data
         if (data.returnCode === '-1001') {
           console.log('请求失败，错误信息')
