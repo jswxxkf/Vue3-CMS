@@ -15,6 +15,7 @@
 </template>
 
 <script lang="ts">
+import store from '@/store'
 import { ElForm } from 'element-plus'
 import { defineComponent, reactive, ref } from 'vue'
 import { formRules } from '../config/phoneConfig'
@@ -29,7 +30,8 @@ export default defineComponent({
     const loginAction = () => {
       formRef.value?.validate((isValid) => {
         if (isValid) {
-          console.log('真正执行登录逻辑')
+          // phone使用展开运算符后，变为非响应式
+          store.dispatch('login/accountLoginAction', { ...phone })
         }
       })
     }

@@ -11,20 +11,16 @@ const hyRequest = new HyRequest({
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       }
-      console.log('请求成功拦截')
       return config
     },
     requestInterceptorCatch(error) {
-      console.log('请求失败拦截')
       console.log(error)
       return error
     },
     responseInterceptor(res) {
-      console.log('响应成功拦截')
       return res
     },
     responseInterceptorCatch(error) {
-      console.log('响应失败拦截')
       console.log(error)
       return error
     },

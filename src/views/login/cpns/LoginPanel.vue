@@ -1,14 +1,14 @@
 <template>
   <div class="login-panel">
     <h1 class="title">后台管理系统</h1>
-    <el-tabs type="border-card" stretch>
-      <el-tab-pane>
+    <el-tabs type="border-card" stretch v-model="currentTab">
+      <el-tab-pane name="account">
         <template #label>
           <span><i class="el-icon-user-solid"></i> 账号登录</span>
         </template>
         <login-account ref="accountRef" />
       </el-tab-pane>
-      <el-tab-pane>
+      <el-tab-pane name="phone">
         <template #label>
           <span><i class="el-icon-mobile-phone"></i> 手机登录</span>
         </template>
@@ -33,18 +33,25 @@ import LoginPhone from './LoginPhone.vue'
 export default defineComponent({
   components: { LoginAccount, LoginPhone },
   setup() {
-    const isKeepPassword = ref(true)
+    // 定义属性
+    const isKeepPassword = ref<boolean>(true)
     const accountRef = ref<InstanceType<typeof LoginAccount>>()
     const phoneRef = ref<InstanceType<typeof LoginPhone>>()
+    const currentTab = ref('account')
+    // 定义方法
     const handleLoginClicked = () => {
-      accountRef.value?.loginAction()
-      phoneRef.value?.loginAction()
+      if (currentTab.value === 'account') {
+        accountRef.value?.loginAction(isKeepPassword.value)
+      } else {
+        phoneRef.value?.loginAction()
+      }
     }
     return {
       isKeepPassword,
-      handleLoginClicked,
       accountRef,
       phoneRef,
+      currentTab,
+      handleLoginClicked,
     }
   },
 })

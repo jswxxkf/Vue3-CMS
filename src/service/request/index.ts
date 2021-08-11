@@ -30,7 +30,6 @@ class HyRequest {
     // 2. 添加所有的实例都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('所有实例都有的拦截器，请求成功拦截')
         if (this.showLoading) {
           this.loading = ElLoading.service({
             lock: true,
@@ -40,27 +39,21 @@ class HyRequest {
         }
         return config
       },
-      (err) => {
-        console.log('所有实例都有的拦截器，请求失败拦截')
-        return err
-      }
+      (err) => err
     )
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('所有实例都有的拦截器，响应成功拦截')
         // 将Loading遮罩层移除
-        setTimeout(() => {
-          this.loading?.close()
-        }, 200)
+        this.loading?.close()
         const data = res.data
-        if (data.returnCode === '-1001') {
+        if (data.returnCode && data.returnCode === '-1001') {
           console.log('请求失败，错误信息')
         } else {
           return data
         }
       },
       (err) => {
-        console.log('所有实例都有的拦截器，响应失败拦截')
+        this.loading?.close()
         // 例子：根据不同的httpErrorCode显示不同的错误信息
         if (err.response.status === 404) {
           console.log('404 page not found')
@@ -80,7 +73,6 @@ class HyRequest {
       if (config.showLoading === false) {
         this.showLoading = config.showLoading
       }
-
       this.instance
         .request<any, T>(config)
         .then((res) => {
