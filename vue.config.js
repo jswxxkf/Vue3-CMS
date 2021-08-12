@@ -1,10 +1,11 @@
-const path = require('path')
+// const path = require('path')
 
 module.exports = {
   // 配置方式1：CLI提供的属性
   outputDir: './build',
   devServer: {
     historyApiFallback: true,
+    // 使用代理规则映射相应URL，绕过CORS跨域检测
     proxy: {
       '^/api': {
         target: 'http://152.136.185.210:5000',
