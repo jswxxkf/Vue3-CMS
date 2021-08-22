@@ -1,11 +1,13 @@
 <template>
   <div class="main">
     <el-container class="main-content">
-      <el-aside width="210px">
-        <nav-menu />
+      <el-aside :width="isCollapsed ? '60px' : '210px'">
+        <nav-menu :collapsed="isCollapsed" />
       </el-aside>
       <el-container class="page">
-        <el-header class="page-header">Header</el-header>
+        <el-header class="page-header">
+          <nav-header @foldChanged="handleFoldChanged" />
+        </el-header>
         <el-main class="page-content">Main</el-main>
       </el-container>
     </el-container>
@@ -13,13 +15,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import NavMenu from '@/components/nav-menu/index'
+import { defineComponent, ref } from 'vue'
+import NavMenu from '@/components/navMenu/index'
+import NavHeader from '@/components/navHeader/index'
 
 export default defineComponent({
-  components: { NavMenu },
+  components: { NavMenu, NavHeader },
   setup() {
-    return {}
+    const isCollapsed = ref(false)
+    const handleFoldChanged = (isFold: boolean) => {
+      isCollapsed.value = isFold
+    }
+    return { isCollapsed, handleFoldChanged }
   },
 })
 </script>
