@@ -6,7 +6,7 @@
       @click="handleFoldClicked"
     ></i>
     <div class="content">
-      <div>面包屑</div>
+      <hy-breadcrumb :breadcrumbs="breadcrumbs" />
       <user-info />
     </div>
   </div>
@@ -15,19 +15,24 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 import UserInfo from './UserInfo.vue'
+import HyBreadcrumb, { IBreadcrumb } from '@/base-ui/breadcrumb'
 
 export default defineComponent({
   emits: ['foldChanged'],
-  components: { UserInfo },
+  components: { UserInfo, HyBreadcrumb },
   setup(_, { emit }) {
     const isFold = ref(false)
     const handleFoldClicked = () => {
       isFold.value = !isFold.value
       emit('foldChanged', isFold.value)
     }
+    // 面包屑的数据
+    const breadcrumbs: IBreadcrumb[] = []
+
     return {
       isFold,
       handleFoldClicked,
+      breadcrumbs,
     }
   },
 })
