@@ -9,7 +9,7 @@ import { setupStore } from './store'
 
 const app = createApp(rootApp)
 
-registerApp(app)
+app.use(registerApp)
 app.use(store)
 setupStore()
 app.use(router)

@@ -2,9 +2,9 @@
   <div class="breadcrumb">
     <el-breadcrumb separator="/">
       <template v-for="item in breadcrumbs" :key="item.name">
-        <el-breadcrumb-item :to="{ path: item.path }">{{
-          item.name
-        }}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: item.path }">
+          <span :class="{ 'no-path': noPath }">{{ item.name }}</span>
+        </el-breadcrumb-item>
       </template>
     </el-breadcrumb>
   </div>
@@ -20,6 +20,10 @@ export default defineComponent({
       type: Array as PropType<IBreadcrumb[]>,
       default: () => [],
     },
+    noPath: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup() {
     return {}
@@ -27,4 +31,9 @@ export default defineComponent({
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+.no-path {
+  cursor: default;
+  user-select: none;
+}
+</style>

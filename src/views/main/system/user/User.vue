@@ -1,24 +1,29 @@
 <template>
   <div class="user">
-    <hy-form v-bind="searchFormConfig" />
-    <div class="content"></div>
+    <page-search :searchFormConfig="searchFormConfig" />
+    <page-content :contentTableConfig="contentTableConfig" pageName="user" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HyForm from '@/base-ui/form'
+
 import { searchFormConfig } from './config/search.config'
+import { contentTableConfig } from './config/content.config'
+
+import PageSearch from '@/components/pageSearch/'
+import PageContent from '@/components/pageContent'
 
 export default defineComponent({
+  components: { PageSearch, PageContent },
   name: 'user',
-  components: { HyForm },
   setup() {
     return {
       searchFormConfig,
+      contentTableConfig,
     }
   },
 })
 </script>
 
-<style scoped></style>
+<style scoped lang="less"></style>
