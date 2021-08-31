@@ -60,10 +60,10 @@ export default defineComponent({
     const dataList = computed(() => {
       return store.getters['system/pageListData'](props.pageName)
     })
-    const userCount = computed(() => store.state.system.userCount)
+    const usersCount = computed(() => store.state.system.usersCount)
     return {
       dataList,
-      userCount,
+      usersCount,
     }
   },
 })

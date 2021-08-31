@@ -94,7 +94,7 @@ export default defineComponent({
   setup(props, { emit }) {
     // 拷贝出一份新的响应式的formData
     const formData = ref({ ...props.modelValue })
-    // 深度监听拷贝出的formData的改变，随后发射改变事件
+    // 深度侦听拷贝出的formData的改变，随后发射改变事件
     watch(formData, (newValue) => emit('update:modelValue', newValue), {
       deep: true,
     })

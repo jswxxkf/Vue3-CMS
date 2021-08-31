@@ -6,7 +6,12 @@
       </template>
       <template #footer>
         <div class="handle-btns">
-          <el-button icon="el-icon-set-up" size="medium">重置</el-button>
+          <el-button
+            icon="el-icon-set-up"
+            size="medium"
+            @click="handleResetClick"
+            >重置</el-button
+          >
           <el-button type="primary" icon="el-icon-search" size="medium"
             >搜索</el-button
           >
@@ -28,16 +33,25 @@ export default defineComponent({
     },
   },
   components: { HyForm },
-  setup() {
-    const formData = ref({
-      id: '',
-      name: '',
-      password: '',
-      sport: '',
-      createTime: '',
-    })
+  setup(props) {
+    // 优化1：formData中的属性应该动态决定
+    const formItems = props.searchFormConfig?.formItems ?? []
+    const formOriginData: any = {}
+    for (const item of formItems) {
+      formOriginData[item.field] = ''
+    }
+    const formData = ref(formOriginData)
+    // 优化2：当用户点击重置
+    const handleResetClick = () => {
+      for (const key in formOriginData) {
+        // 由于Form.vue中，formData拿到的是这里的浅拷贝，
+        // 故修改某个键对应的值会引起浅拷贝后对象的变化
+        formData.value[`${key}`] = formOriginData[key]
+      }
+    }
     return {
       formData,
+      handleResetClick,
     }
   },
 })
