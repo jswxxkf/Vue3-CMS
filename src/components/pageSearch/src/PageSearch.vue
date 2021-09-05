@@ -12,7 +12,11 @@
             @click="handleResetClick"
             >重置</el-button
           >
-          <el-button type="primary" icon="el-icon-search" size="medium"
+          <el-button
+            type="primary"
+            icon="el-icon-search"
+            size="medium"
+            @click="handleQuery"
             >搜索</el-button
           >
         </div>
@@ -26,6 +30,7 @@ import { defineComponent, ref } from 'vue'
 import HyForm from '@/base-ui/form'
 
 export default defineComponent({
+  emits: ['resetBtnClicked', 'queryBtnClicked'],
   props: {
     searchFormConfig: {
       type: Object,
@@ -33,7 +38,7 @@ export default defineComponent({
     },
   },
   components: { HyForm },
-  setup(props) {
+  setup(props, { emit }) {
     // 优化1：formData中的属性应该动态决定
     const formItems = props.searchFormConfig?.formItems ?? []
     const formOriginData: any = {}
@@ -48,10 +53,16 @@ export default defineComponent({
         // 故修改某个键对应的值会引起浅拷贝后对象的变化
         formData.value[`${key}`] = formOriginData[key]
       }
+      emit('resetBtnClicked')
+    }
+    // 优化3：当用户点击搜索
+    const handleQuery = () => {
+      emit('queryBtnClicked', formData.value)
     }
     return {
       formData,
       handleResetClick,
+      handleQuery,
     }
   },
 })
