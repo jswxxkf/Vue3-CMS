@@ -4,7 +4,7 @@ export const contentTableConfig = {
     { prop: 'name', label: '用户名', minWidth: '100' },
     { prop: 'intro', label: '权限介绍', minWidth: '100' },
     {
-      prop: 'createAt',
+      prop: 'createTime',
       label: '创建时间',
       minWidth: '250',
       slotName: 'createAt',

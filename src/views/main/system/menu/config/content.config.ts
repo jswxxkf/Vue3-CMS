@@ -7,7 +7,7 @@ export const contentTableConfig = {
     { prop: 'icon', label: '菜单图标', minWidth: '100', slotName: 'image' },
     { prop: 'permission', label: '按钮权限', minWidth: '100' },
     {
-      prop: 'createAt',
+      prop: 'createTime',
       label: '创建时间',
       minWidth: '200',
       slotName: 'createAt',

@@ -7,7 +7,7 @@ export const contentTableConfig = {
     { prop: 'imgUrl', label: '商品图片', minWidth: '100', slotName: 'image' },
     { prop: 'status', label: '状态', minWidth: '100', slotName: 'status' },
     {
-      prop: 'createAt',
+      prop: 'createTime',
       label: '创建时间',
       minWidth: '250',
       slotName: 'createAt',

@@ -8,8 +8,12 @@
     >
       <!-- 1. Header中插槽 -->
       <template #headerOper>
-        <el-button v-if="isCreate" type="primary" size="small"
-          >新建用户</el-button
+        <el-button
+          v-if="isCreate"
+          type="primary"
+          size="small"
+          @click="handleCreateClick"
+          >新建数据</el-button
         >
       </template>
       <!-- 2. 列中插槽 -->
@@ -24,9 +28,14 @@
       <template #updateAt="scope">
         <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
       </template>
-      <template #oper>
+      <template #oper="scope">
         <div class="oper-btns">
-          <el-button v-if="isUpdate" icon="el-icon-edit" size="mini" type="text"
+          <el-button
+            v-if="isUpdate"
+            icon="el-icon-edit"
+            size="mini"
+            type="text"
+            @click="handleEditClick"
             >编辑</el-button
           >
           <el-button
@@ -34,6 +43,7 @@
             icon="el-icon-delete"
             size="mini"
             type="text"
+            @click="handleItemDeleted(scope.row)"
             >删除</el-button
           >
         </div>
@@ -70,7 +80,8 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  emits: ['createBtnClicked', 'editBtnClicked'],
+  setup(props, { emit }) {
     const store = useStore()
     // 获取操作的权限
     const isCreate = usePermission(props.pageName, 'create')
@@ -114,6 +125,20 @@ export default defineComponent({
         return true
       }
     )
+    // 删除操作处理
+    const handleItemDeleted = (item: any) => {
+      store.dispatch('system/deletePageDataAction', {
+        pageName: props.pageName,
+        id: item.id,
+      })
+    }
+    // 新建操作处理
+    const handleCreateClick = () => {
+      emit('createBtnClicked')
+    }
+    const handleEditClick = (item: any) => {
+      emit('editBtnClicked', item)
+    }
     return {
       dataList,
       getPageData,
@@ -123,6 +148,9 @@ export default defineComponent({
       isCreate,
       isUpdate,
       isDelete,
+      handleItemDeleted,
+      handleCreateClick,
+      handleEditClick,
     }
   },
 })
