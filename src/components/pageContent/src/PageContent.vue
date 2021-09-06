@@ -35,7 +35,7 @@
             icon="el-icon-edit"
             size="mini"
             type="text"
-            @click="handleEditClick"
+            @click="handleEditClick(scope.row)"
             >编辑</el-button
           >
           <el-button
@@ -43,7 +43,7 @@
             icon="el-icon-delete"
             size="mini"
             type="text"
-            @click="handleItemDeleted(scope.row)"
+            @click="handleItemDeleted"
             >删除</el-button
           >
         </div>

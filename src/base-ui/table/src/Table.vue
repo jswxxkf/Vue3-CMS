@@ -92,7 +92,7 @@ export default defineComponent({
     },
     childrenProps: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
     showFooter: {
       type: Boolean,

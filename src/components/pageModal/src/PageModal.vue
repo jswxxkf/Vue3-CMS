@@ -1,6 +1,12 @@
 <template>
   <div class="page-modal">
-    <el-dialog title="新建用户" v-model="dialogVisible" width="30%" center>
+    <el-dialog
+      title="新建用户"
+      v-model="dialogVisible"
+      width="30%"
+      center
+      destroy-on-close
+    >
       <hy-form v-bind="modalConfig" v-model="formData"></hy-form>
       <template #footer>
         <span class="dialog-footer">
@@ -15,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import HyForm from '@/base-ui/form'
 
 export default defineComponent({
@@ -24,11 +30,23 @@ export default defineComponent({
       type: Object,
       required: true,
     },
+    defaultInfo: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   components: { HyForm },
-  setup() {
+  setup(props) {
     const dialogVisible = ref(false)
-    const formData = ref({})
+    const formData = ref<any>({})
+    watch(
+      () => props.defaultInfo,
+      (newValue) => {
+        for (const item of props.modalConfig.formItems) {
+          formData.value[`${item.field}`] = newValue[`${item.field}`]
+        }
+      }
+    )
     return {
       dialogVisible,
       formData,
