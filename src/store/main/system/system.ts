@@ -1,7 +1,12 @@
 import { Module } from 'vuex'
 import { IRootState } from '@/store/type'
 import { ISystemState } from './type'
-import { deletePageData, getPageListData } from '@/service/main/system/system'
+import {
+  deletePageData,
+  getPageListData,
+  createPageData,
+  editPageData,
+} from '@/service/main/system/system'
 
 const systemModule: Module<ISystemState, IRootState> = {
   namespaced: true,
@@ -73,9 +78,37 @@ const systemModule: Module<ISystemState, IRootState> = {
       // 1. pageName, 2. id
       const { pageName, id } = payload
       const pageUrl = `/${pageName}/$${id}`
-      // 调用删除网络请求
+      // 2. 调用删除网络请求
       await deletePageData(pageUrl)
-      // 删除后，重新请求最新数据
+      // 3. 删除后，重新请求最新数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10,
+        },
+      })
+    },
+    async createPageDataAction({ dispatch }, payload: any) {
+      // 1. 创建数据的请求
+      const { pageName, newData } = payload
+      const pageUrl = `/${pageName}`
+      await createPageData(pageUrl, newData)
+      // 2. 请求最新数据
+      dispatch('getPageListAction', {
+        pageName,
+        queryInfo: {
+          offset: 0,
+          size: 10,
+        },
+      })
+    },
+    async editPageDataAction({ dispatch }, payload: any) {
+      // 1. 编辑数据的请求
+      const { pageName, editData, id } = payload
+      const pageUrl = `/${pageName}/${id}`
+      await editPageData(pageUrl, editData)
+      // 2. 请求最新数据
       dispatch('getPageListAction', {
         pageName,
         queryInfo: {

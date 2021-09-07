@@ -12,6 +12,7 @@ export function formatUtcString(
   format: string = DATE_TIME_FORMAT
 ) {
   return dayjs.utc(dayjs.tz(utcString, 'Asia/Tokyo')).format(format)
+  // return dayjs.utc(utcString).format(format)
 }
 
 export function formatTimestamp(
