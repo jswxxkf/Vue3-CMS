@@ -77,7 +77,7 @@ const systemModule: Module<ISystemState, IRootState> = {
     async deletePageDataAction({ dispatch }, payload: any) {
       // 1. pageName, 2. id
       const { pageName, id } = payload
-      const pageUrl = `/${pageName}/$${id}`
+      const pageUrl = `/${pageName}/${id}`
       // 2. 调用删除网络请求
       await deletePageData(pageUrl)
       // 3. 删除后，重新请求最新数据

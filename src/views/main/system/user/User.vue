@@ -62,13 +62,13 @@ export default defineComponent({
         (item) => item.field === 'departmentId'
       )
       departmentItem!.options = store.state.entireDepartment.map((item) => {
-        return { title: item.name, value: item.name }
+        return { title: item.name, value: item.id }
       })
       const roleItem = modalConfig.formItems.find(
         (item) => item.field === 'roleId'
       )
       roleItem!.options = store.state.entireRole.map((item) => {
-        return { title: item.name, value: item.name }
+        return { title: item.name, value: item.id }
       })
       return modalConfig
     })

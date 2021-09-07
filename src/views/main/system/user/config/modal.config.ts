@@ -3,7 +3,7 @@ import { IForm } from '@/base-ui/form/types'
 export const modalConfig: IForm = {
   formItems: [
     {
-      field: 'id',
+      field: 'name',
       type: 'input',
       label: '用户名',
       placeholder: '请输入用户名',

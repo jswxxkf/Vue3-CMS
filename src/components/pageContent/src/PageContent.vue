@@ -43,7 +43,7 @@
             icon="el-icon-delete"
             size="mini"
             type="text"
-            @click="handleItemDeleted"
+            @click="handleItemDeleted(scope.row)"
             >删除</el-button
           >
         </div>
@@ -127,6 +127,7 @@ export default defineComponent({
     )
     // 删除操作处理
     const handleItemDeleted = (item: any) => {
+      console.log(item)
       store.dispatch('system/deletePageDataAction', {
         pageName: props.pageName,
         id: item.id,
