@@ -1,7 +1,12 @@
 <template>
   <div class="role">
-    <page-search :searchFormConfig="searchFormConfig" />
+    <page-search
+      :searchFormConfig="searchFormConfig"
+      @resetBtnClicked="handleResetClicked"
+      @queryBtnClicked="handleQueryClicked"
+    />
     <page-content
+      ref="pageContentRef"
       :contentTableConfig="contentTableConfig"
       pageName="role"
       @createBtnClicked="handleCreateData"
@@ -41,6 +46,7 @@ import PageContent from '@/components/pageContent'
 import PageSearch from '@/components/pageSearch'
 import PageModal from '@/components/pageModal'
 // hooks
+import { usePageSearch } from '@/hooks/usePageSearch'
 import { usePageModal } from '@/hooks/usePageModal'
 import { useStore } from '@/store'
 // utils
@@ -60,15 +66,21 @@ export default defineComponent({
     }
     const [pageModalRef, defaultInfo, handleCreateData, handleEditData] =
       usePageModal(undefined, editCallback)
+    // 2. 从vuex中取出整个菜单信息
     const store = useStore()
     const menus = computed(() => store.state.entireMenu)
+    // 3. otherInfo作为PageModal发送网络请求的额外信息
     const otherInfo = ref({})
     const handleCheckChange = (data1: any, data2: any) => {
       const checkedKeys = data2.checkedKeys
       const halfCheckedKeys = data2.halfCheckedKeys
+      // 合并选择和半选的复选框Key
       const menuList = [...checkedKeys, ...halfCheckedKeys]
       otherInfo.value = { menuList: menuList }
     }
+    // 4. 处理pageSearch的hook
+    const [pageContentRef, handleResetClicked, handleQueryClicked] =
+      usePageSearch()
     return {
       searchFormConfig,
       contentTableConfig,
@@ -81,6 +93,9 @@ export default defineComponent({
       menus,
       handleCheckChange,
       elTreeRef,
+      pageContentRef,
+      handleResetClicked,
+      handleQueryClicked,
     }
   },
 })

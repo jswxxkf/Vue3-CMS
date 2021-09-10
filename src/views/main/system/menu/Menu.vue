@@ -6,8 +6,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import PageContent from '@/components/pageContent'
+// config
 import { contentTableConfig } from './config/content.config'
+// sub cpn
+import PageContent from '@/components/pageContent'
 
 export default defineComponent({
   name: 'Menu',

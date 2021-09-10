@@ -10,7 +10,7 @@ export const searchFormConfig: IForm = {
       placeholder: '请输入角色名称',
     },
     {
-      field: 'info',
+      field: 'intro',
       type: 'input',
       label: '权限介绍',
       placeholder: '请输入权限介绍',
@@ -19,6 +19,16 @@ export const searchFormConfig: IForm = {
       field: 'createAt',
       type: 'datepicker',
       label: '创建时间',
+      otherOptions: {
+        startPlaceholder: '开始时间',
+        endPlaceholder: '结束时间',
+        type: 'daterange',
+      },
+    },
+    {
+      field: 'updateAt',
+      type: 'datepicker',
+      label: '更新时间',
       otherOptions: {
         startPlaceholder: '开始时间',
         endPlaceholder: '结束时间',
