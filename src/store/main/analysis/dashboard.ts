@@ -1,6 +1,6 @@
 import { Module } from 'vuex'
 import { IDashboardState } from './type'
-import { IRootState } from '../type'
+import { IRootState } from '../../type'
 import {
   getCategoryGoodsCount,
   getCategoryGoodsSale,
@@ -20,16 +20,16 @@ const dashboardModule: Module<IDashboardState, IRootState> = {
   },
   mutations: {
     changeCategoryGoodsCount(state, list) {
-      state.categoryGoodsCount = list
+      state.categoryGoodsCount = list.data
     },
     changeCategoryGoodsSale(state, list) {
-      state.categoryGoodsSale = list
+      state.categoryGoodsSale = list.data
     },
     changeCategoryGoodsFavor(state, list) {
-      state.categoryGoodsFavor = list
+      state.categoryGoodsFavor = list.data
     },
     changeAddressGoodsSale(state, list) {
-      state.addressGoodsSale = list
+      state.addressGoodsSale = list.data
     },
   },
   actions: {

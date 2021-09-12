@@ -4,7 +4,7 @@ import { IStoreType } from './type'
 // sub modules
 import login from './login/login'
 import system from './main/system/system'
-import dashboard from './analysis/dashboard'
+import dashboard from './main/analysis/dashboard'
 
 import { getPageListData } from '@/service/main/system/system'
 
