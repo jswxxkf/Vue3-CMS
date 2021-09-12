@@ -11,10 +11,3 @@ export function formatUtcString(
 ) {
   return dayjs.utc(utcString).utcOffset(8).format(format)
 }
-
-export function formatTimestamp(
-  timestamp: number,
-  format: string = DATE_TIME_FORMAT
-) {
-  return ''
-}
