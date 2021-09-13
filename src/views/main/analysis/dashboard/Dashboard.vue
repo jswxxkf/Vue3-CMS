@@ -7,7 +7,9 @@
         </hy-card>
       </el-col>
       <el-col :span="10">
-        <hy-card title="不同城市商品销量"></hy-card>
+        <hy-card title="不同城市商品销量">
+          <map-echart :mapData="addressGoodsSale" />
+        </hy-card>
       </el-col>
       <el-col :span="7">
         <hy-card title="分类商品数量(玫瑰图)">
@@ -39,11 +41,19 @@ import {
   RoseEchart,
   LineEchart,
   BarEchart,
+  MapEchart,
 } from '@/components/pageEcharts'
 
 export default defineComponent({
   name: 'Dashboard',
-  components: { HyCard, PieEchart, RoseEchart, LineEchart, BarEchart },
+  components: {
+    HyCard,
+    PieEchart,
+    RoseEchart,
+    LineEchart,
+    BarEchart,
+    MapEchart,
+  },
   setup() {
     const store = useStore()
     // 派发action，调用service接口请求所有图表数据，存入vuex
@@ -74,10 +84,16 @@ export default defineComponent({
       }
       return { xLabels, values }
     })
+    const addressGoodsSale = computed(() => {
+      return store.state.dashboard.addressGoodsSale.map((item: any) => {
+        return { name: item.address, value: item.count }
+      })
+    })
     return {
       categoryGoodsCount,
       categoryGoodsSale,
       categoryGoodsFavor,
+      addressGoodsSale,
     }
   },
 })

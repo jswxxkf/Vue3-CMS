@@ -8,7 +8,7 @@
 import { defineProps, computed } from 'vue'
 import BaseEchart from '@/base-ui/echart'
 // types
-import { IDataType } from '../types'
+import type { IDataType } from '../types'
 
 const props = defineProps<{
   roseData: IDataType
