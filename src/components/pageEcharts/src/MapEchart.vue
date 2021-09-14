@@ -14,7 +14,7 @@ import type { IDataType } from '../types'
 const props = withDefaults(
   defineProps<{
     title?: string
-    mapData: IDataType
+    mapData: IDataType[]
   }>(),
   {
     title: '',
@@ -28,7 +28,8 @@ const options = computed(() => {
       text: '全国销量统计',
       left: 'center',
       textStyle: {
-        color: '#fff',
+        color: '#000',
+        fontSize: 16,
       },
     },
     tooltip: {
@@ -40,15 +41,15 @@ const options = computed(() => {
     visualMap: {
       min: 0,
       max: 60000,
-      left: 20,
-      bottom: 20,
+      left: 10,
+      bottom: 0,
       calculable: true,
       text: ['高', '低'],
       inRange: {
         color: ['rgb(70, 240, 252)', 'rgb(250, 220, 46)', 'rgb(245, 38, 186)'],
       },
       textStyle: {
-        color: '#fff',
+        color: '#000',
       },
     },
     geo: {
@@ -68,11 +69,11 @@ const options = computed(() => {
         type: 'scatter',
         coordinateSystem: 'geo',
         data: convertData(props.mapData),
-        symbolSize: 12,
+        symbolSize: 12, // 圆点大小
         emphasis: {
           itemStyle: {
-            borderColor: '#fff',
-            borderWidth: 1,
+            borderColor: '#000',
+            borderWidth: 2,
           },
         },
       },

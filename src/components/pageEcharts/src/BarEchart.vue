@@ -26,9 +26,7 @@ const options = computed(() => {
       data: props.xLabels,
       axisLabel: {
         inside: false,
-        textStyle: {
-          color: '#000',
-        },
+        color: '#000',
       },
       axisTick: {
         show: false,
@@ -46,9 +44,7 @@ const options = computed(() => {
         show: true,
       },
       axisLabel: {
-        textStyle: {
-          color: '#999',
-        },
+        color: '#999',
       },
     },
     dataZoom: [

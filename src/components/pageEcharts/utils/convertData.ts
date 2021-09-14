@@ -11,5 +11,7 @@ export function convertData(data: any) {
       })
     }
   }
+  // 最终嵌入options中的数据：
+  // [{name: cityName, value: [longitude, altitude, saleCount]}, ...]
   return res
 }
