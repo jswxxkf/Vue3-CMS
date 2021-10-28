@@ -6,7 +6,7 @@
       v-bind="contentTableConfig"
       v-model:page="pageInfo"
     >
-      <!-- 1. Header中插槽 -->
+      <!-- 1. Header中插槽(仅具名插槽) -->
       <template #headerOper>
         <el-button
           v-if="isCreate"
@@ -16,7 +16,7 @@
           >新建数据</el-button
         >
       </template>
-      <!-- 2. 列中插槽 -->
+      <!-- 2. 列中插槽(具名作用域插槽 named scoped slot)-->
       <template #status="scope">
         <el-tag size="small" :type="scope.row.enable ? 'success' : 'danger'">{{
           scope.row.enable ? '已启用' : '已冻结'
@@ -48,7 +48,8 @@
           >
         </div>
       </template>
-      <!-- 3. 剩余的列中插槽插入到父组件中，并且给子组件预留动态插槽，由子组件插入 -->
+      <!-- 3. 剩余的列中插槽(动态具名作用域插槽 dynamic named scoped slot)，若无slotName，则使用Table.vue中给的默认值 -->
+      <!--    同时给父组件预留具名作用域插槽，由父组件插入 -->
       <template
         v-for="item in otherPropSlots"
         :key="item.prop"
@@ -64,8 +65,10 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, watch } from 'vue'
-import { useStore } from '@/store'
+// sub cpn
 import HyTable from '@/base-ui/table'
+// hooks
+import { useStore } from '@/store'
 import { usePermission } from '@/hooks/usePermission'
 
 export default defineComponent({
@@ -107,13 +110,15 @@ export default defineComponent({
         },
       })
     }
+    // setup()完全可以替代beforeCreate()和onCreate()，
+    // 故相当于是在onCreate()中发送网络请求
     getPageData()
     // 从vuex中获取数据
     const dataList = computed(() => {
       return store.getters['system/pageListData'](props.pageName)
     })
     const dataCount = computed(() => {
-      return store.getters[`system/pageListCount`](props.pageName)
+      return store.getters['system/pageListCount'](props.pageName)
     })
     // 获取其他的动态插槽名称
     const otherPropSlots = props.contentTableConfig.propList.filter(

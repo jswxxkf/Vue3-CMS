@@ -30,9 +30,10 @@
       ></el-table-column>
       <template v-for="propItem in propList" :key="propItem.prop">
         <el-table-column v-bind="propItem" align="center" show-overflow-tooltip>
+          <!-- 这是el-table-column提供的默认作用域插槽，暴露出表格每行数据(scope.row) -->
           <template #default="scope">
             <!-- 动态设置具名插槽, 由父组件决定该列应如何展示, 默认是展示原信息 -->
-            <!-- 通过作用域插槽，传出值给父组件使用 -->
+            <!-- 同时通过作用域插槽，传出值给父组件使用 -->
             <slot :name="propItem.slotName" :row="scope.row">
               {{ scope.row[propItem.prop] }}
             </slot>
