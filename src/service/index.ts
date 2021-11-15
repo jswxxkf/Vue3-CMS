@@ -7,6 +7,7 @@ const hyRequest = new HyRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   interceptors: {
+    // 请求拦截器，携带本地存储的token
     requestInterceptor(config) {
       const token = localCache.getCache('token')
       if (token) {

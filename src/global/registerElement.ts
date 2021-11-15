@@ -79,6 +79,7 @@ const components = [
   ElCard,
 ]
 
+// main.ts中使用app.use(registerElements)就可以执行此处的遍历注册全局组件
 export default function (app: App): void {
   for (const component of components) {
     app.component(component.name, component)

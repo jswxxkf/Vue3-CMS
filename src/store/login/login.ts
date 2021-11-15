@@ -1,6 +1,6 @@
-import { Module } from 'vuex'
-import { IRootState } from '../type'
-import { ILoginState } from './type'
+import type { Module } from 'vuex'
+import type { IRootState } from '../type'
+import type { ILoginState } from './type'
 import {
   accountLoginRequest,
   requestUserInfoById,
@@ -31,9 +31,10 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
-      // userMenus => routes
+      // 将用户菜单信息映射到路由，即动态地配置路由信息，
+      // 用户只能跳转到自己权限对应的路由路径，否则404
       const routes = mapMenusToRoutes(userMenus)
-      // 将routes => router.main.children
+      // 将各route作为main的子路由进行追加
       routes.forEach((route) => {
         router.addRoute('main', route)
       })
@@ -47,11 +48,12 @@ const loginModule: Module<ILoginState, IRootState> = {
       // 1. 实现登录逻辑
       const loginResult = await accountLoginRequest(payload)
       const { id, token } = loginResult.data
+      // 1.1 存储token
       commit('changeToken', token)
       localCache.setCache('token', token)
-      // 发送初始化的请求 (完整的role/department...)
+      // 1.2 发送初始化的请求 (请求全部部门、角色、菜单等数据)
       dispatch('getInitialDataAction', null, { root: true })
-      // 2. 请求用户信息
+      // 2. 根据id，请求用户信息并存储到store和本地
       const userInfoResult = await requestUserInfoById(id)
       const userInfo = userInfoResult.data
       commit('changeUserInfo', userInfo)
@@ -59,16 +61,19 @@ const loginModule: Module<ILoginState, IRootState> = {
       // 3. 请求用户菜单
       const userMenusResult = await requestUserMenusByRoleId(userInfo.role.id)
       const userMenus = userMenusResult.data
+      // 3.1 根据用户菜单，动态生成路由配置
       commit('changeUserMenus', userMenus)
       localCache.setCache('userMenus', userMenus)
       // 4. 跳转首页
       router.push('/main')
     },
+    // main.ts中调用，作用是一开始便根据localStorage中已有的数据来做初始化工作
+    // 配合beforeEach全局导航守卫，若已登录，则从loginPage直接跳转至mainPage
     loadLocalLogin({ commit, dispatch }) {
       const token = localCache.getCache('token')
       if (token) {
         commit('changeToken', token)
-        // 发送初始化的请求 (完整的role/department...)
+        // 发送初始化的请求 (请求全部部门、角色、菜单等数据)
         dispatch('getInitialDataAction', null, { root: true })
       }
       const userInfo = localCache.getCache('userInfo')
