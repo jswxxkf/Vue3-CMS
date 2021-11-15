@@ -38,6 +38,8 @@ import {
   ElDialog,
   ElTree,
   ElCard,
+  ElDescriptions,
+  ElDescriptionsItem,
 } from 'element-plus'
 const components = [
   ElButton,
@@ -77,6 +79,8 @@ const components = [
   ElDialog,
   ElTree,
   ElCard,
+  ElDescriptions,
+  ElDescriptionsItem,
 ]
 
 // main.ts中使用app.use(registerElements)就可以执行此处的遍历注册全局组件
