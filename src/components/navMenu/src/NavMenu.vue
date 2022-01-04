@@ -104,6 +104,7 @@ export default defineComponent({
     .title {
       font-size: 16px;
       font-weight: 700;
+      line-height: 1.5;
       color: white;
     }
   }

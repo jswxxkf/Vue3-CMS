@@ -70,7 +70,7 @@ export default defineComponent({
 
 <style scoped lang="less">
 .header {
-  margin: 0;
+  margin: 0 0 20px 0;
   padding-left: 20px;
   text-align: left;
 }

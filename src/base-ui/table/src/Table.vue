@@ -10,7 +10,7 @@
     </div>
     <el-table
       :data="listData"
-      border
+      :border="true"
       style="width: 100%"
       @selection-change="handleSelectionChange"
       v-bind="childrenProps"

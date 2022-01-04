@@ -88,4 +88,19 @@ export function mapMenuToLeafKeys(menuList: any[]) {
   return leafKeys
 }
 
+export function mapPageNames(pageName: string) {
+  switch (pageName) {
+    case 'users':
+      return '用户'
+    case 'role':
+      return '角色'
+    case 'menu':
+      return '菜单'
+    case 'goods':
+      return '商品'
+    default:
+      return '用户'
+  }
+}
+
 export { firstMenu }

@@ -64,6 +64,7 @@ const store = createStore<IRootState>({
   },
 })
 
+// main.ts中调用，作用是一开始便根据localStorage中已有的数据来做初始化工作
 export function setupStore() {
   store.dispatch('login/loadLocalLogin')
   // store.dispatch('getInitialDataAction')

@@ -13,7 +13,7 @@
           type="primary"
           size="small"
           @click="handleCreateClick"
-          >新建数据</el-button
+          >{{ createBtnTitle }}</el-button
         >
       </template>
       <!-- 2. 列中插槽(具名作用域插槽 named scoped slot)-->
@@ -70,6 +70,8 @@ import HyTable from '@/base-ui/table'
 // hooks
 import { useStore } from '@/store'
 import { usePermission } from '@/hooks/usePermission'
+// utils
+import { mapPageNames } from '@/utils/mapMenus'
 
 export default defineComponent({
   components: { HyTable },
@@ -96,11 +98,13 @@ export default defineComponent({
       currentPage: 1,
       pageSize: 10,
     })
-    // 侦听pageInfo的改变，重新发送网络请求
+    // 动态决定新建按钮名称
+    const createBtnTitle = `新建${mapPageNames(props.pageName)}`
+    // 侦听pageInfo(pagination决定)的改变，重新发送网络请求
     watch(pageInfo, () => getPageData())
     // 发送网络请求
     const getPageData = (queryInfo: any = {}) => {
-      if (!isQuery) return
+      if (!isQuery) return // 无搜索权限
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
@@ -138,7 +142,7 @@ export default defineComponent({
         id: item.id,
       })
     }
-    // 新建操作处理
+    // 新建与编辑操作处理，实际逻辑写在父组件调用的hook(usePageModal)中
     const handleCreateClick = () => {
       emit('createBtnClicked')
     }
@@ -157,6 +161,7 @@ export default defineComponent({
       handleItemDeleted,
       handleCreateClick,
       handleEditClick,
+      createBtnTitle,
     }
   },
 })

@@ -1,7 +1,7 @@
 <template>
   <div class="page-modal">
     <el-dialog
-      title="新建用户"
+      :title="title"
       v-model="dialogVisible"
       width="30%"
       center
@@ -24,6 +24,7 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
 import { useStore } from 'vuex'
+import { mapPageNames } from '@/utils/mapMenus'
 import HyForm from '@/base-ui/form'
 
 export default defineComponent({
@@ -50,6 +51,7 @@ export default defineComponent({
     const store = useStore()
     const dialogVisible = ref(false)
     const formData = ref<any>({})
+    const title = `新建${mapPageNames(props.pageName)}`
     watch(
       () => props.defaultInfo,
       (newValue) => {
@@ -80,6 +82,7 @@ export default defineComponent({
     return {
       dialogVisible,
       formData,
+      title,
       handleConfirmClick,
     }
   },
