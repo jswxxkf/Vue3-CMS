@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import localCache from '@/utils/cache'
 import type { RouteRecordRaw } from 'vue-router'
 import { firstMenu } from '@/utils/mapMenus'
@@ -33,7 +33,7 @@ const routes: RouteRecordRaw[] = [
 // 并且，若为render子路由，则需要从当前组件props中取到当前路由，通过route.routes方式拿到子路由信息
 const router = createRouter({
   routes,
-  history: createWebHashHistory(),
+  history: createWebHistory(),
 })
 
 // 全局导航守卫
